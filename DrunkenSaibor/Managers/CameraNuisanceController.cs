@@ -54,8 +54,8 @@ namespace DrunkenSaibor.Managers
 
         public void OnDestroy()
         {
-            DestroyAllNuisances();
             _nuisanceManager.RemoveCameraNuisanceController(this);
+            DestroyAllNuisances();
         }
 
         public void EnableAllNuisances() => SetAllNuisancesEnabled(true);

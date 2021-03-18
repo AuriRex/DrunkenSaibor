@@ -1,12 +1,14 @@
-﻿using System;
+﻿using IPA.Loader;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using Zenject;
 
 namespace DrunkenSaibor.Managers
 {
-    internal class DefaultCameraManager : IInitializable, IDisposable
+    internal class CameraManager : IInitializable, IDisposable
     {
-
         public Camera[] Cameras { get; private set; } = null;
 
         public virtual void Initialize()
@@ -29,14 +31,40 @@ namespace DrunkenSaibor.Managers
                 CameraNuisanceController cnc = cam.gameObject.GetComponent<CameraNuisanceController>();
                 if (cnc == null)
                 {
-                    cnc = cam.gameObject.AddComponent<CameraNuisanceController>();
+                    cam.gameObject.AddComponent<CameraNuisanceController>();
+                }
+                else
+                {
+                    GameObject.Destroy(cnc);
+                    cam.gameObject.AddComponent<CameraNuisanceController>();
                 }
             }
         }
 
         public virtual void Refresh()
         {
-            Cameras = Camera.allCameras;
+            PluginMetadata cameraTwo = PluginManager.GetPluginFromId("Camera2");
+            if(cameraTwo != null)
+            {
+                List<Camera> cameras = new List<Camera>();
+                Type cam2Type = cameraTwo?.Assembly.GetType("Camera2.Behaviours.Cam2");
+                MonoBehaviour[] allCam2s = GameObject.FindObjectsOfType(cam2Type) as MonoBehaviour[];
+                foreach(MonoBehaviour cam2 in allCam2s)
+                {
+                    var camera = cam2Type.GetProperty("UCamera", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(cam2, null) as Camera;
+                    if(camera != null)
+                    {
+                        cameras.Add(camera);
+                    }
+                }
+                cameras.AddRange(Camera.allCameras);
+                Cameras = cameras.ToArray();
+            }
+            else
+            {
+                Cameras = Camera.allCameras;
+            }
+
             OnCameraRefreshDone();
         }
 

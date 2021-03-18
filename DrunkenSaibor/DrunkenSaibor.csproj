@@ -137,11 +137,10 @@
     <Compile Include="Data\Nuisances\RotateCamera.cs" />
     <Compile Include="Data\Nuisances\WeirdshitCamera.cs" />
     <Compile Include="Data\Nuisances\ZoomCamera.cs" />
-    <Compile Include="HarmonyPatches\Camera2Patch.cs" />
     <Compile Include="Installers\DSCoreInstaller.cs" />
     <Compile Include="Installers\DSGameInstaller.cs" />
     <Compile Include="Installers\DSMenuInstaller.cs" />
-    <Compile Include="Managers\DefaultCameraManager.cs" />
+    <Compile Include="Managers\CameraManager.cs" />
     <Compile Include="Managers\DSAssetLoader.cs" />
     <Compile Include="Managers\MenuUIManager.cs" />
     <Compile Include="Managers\NIntensityMappings.cs" />
@@ -172,7 +171,9 @@
     <EmbeddedResource Include="Resources\Effects\zoom.dsfx" />
     <EmbeddedResource Include="UI\Views\modifiers.bsml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="HarmonyPatches\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="BuildTargets.targets" />
   <PropertyGroup>

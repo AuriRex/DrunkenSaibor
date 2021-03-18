@@ -112,18 +112,19 @@ namespace DrunkenSaibor.Managers
             UpdateIntensity();
         }
 
-        internal void AddCameraNuisanceController(CameraNuisanceController smoothCameraNuisanceController)
+        internal void AddCameraNuisanceController(CameraNuisanceController cameraNuisanceController)
         {
-            if (!_cameraNuisanceControllers.Contains(smoothCameraNuisanceController))
+            if (!_cameraNuisanceControllers.Contains(cameraNuisanceController))
             {
-                Logger.log.Debug($"New SmoothCameraNuisanceController on gameobject '{smoothCameraNuisanceController.gameObject.name}'");
-                _cameraNuisanceControllers.Add(smoothCameraNuisanceController);
+                Logger.log.Debug($"New SmoothCameraNuisanceController on gameobject '{cameraNuisanceController.gameObject.name}'");
+                _cameraNuisanceControllers.Add(cameraNuisanceController);
             }
         }
 
         internal void RemoveCameraNuisanceController(CameraNuisanceController cameraNuisanceController)
         {
-            _cameraNuisanceControllers.Remove(cameraNuisanceController);
+            if (_cameraNuisanceControllers.Contains(cameraNuisanceController))
+                _cameraNuisanceControllers.Remove(cameraNuisanceController);
         }
 
         private int _lastFrameCount = 0;
@@ -237,6 +238,8 @@ namespace DrunkenSaibor.Managers
             {
                 Logger.log.Debug($"NuisanceType: {t}");
             }
+            if (_cameraNuisanceControllers == null)
+                _cameraNuisanceControllers = new List<CameraNuisanceController>();
         }
 
 
@@ -248,7 +251,6 @@ namespace DrunkenSaibor.Managers
                 if (cnc == null) continue;
                 GameObject.Destroy(cnc);
             }
-            _cameraNuisanceControllers = null;
         }
     }
 }

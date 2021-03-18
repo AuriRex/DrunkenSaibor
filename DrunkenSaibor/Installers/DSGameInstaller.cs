@@ -20,7 +20,7 @@ namespace DrunkenSaibor.Installers
         {
             //Container.Bind<CameraNuisanceController>().FromNewComponentOn(_mainCamera.gameObject).AsTransient().NonLazy();
             //Container.Bind<CameraNuisanceController>().FromNewComponentOn(_smoothCameraWrapper.Value.gameObject).AsTransient().NonLazy();
-            Container.BindInterfacesAndSelfTo<DefaultCameraManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CameraManager>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<NuisanceGameController>().AsSingle();
         }
