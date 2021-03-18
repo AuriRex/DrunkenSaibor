@@ -1,6 +1,4 @@
 ﻿using DrunkenSaibor.Configuration;
-using DrunkenSaibor.Data;
-using DrunkenSaibor.Data.Nuisances;
 using DrunkenSaibor.Util;
 using SiraUtil.Services;
 using System;
@@ -57,7 +55,7 @@ namespace DrunkenSaibor.Managers
                 NotesSpawned = 0;
                 Combo = 0;
                 ConsecutiveMissed = 0;
-                Intensity = 0; // <-------- ####################################################################################
+                Intensity = 0;
                 TargetIntensity = 0;
             }
 
@@ -135,14 +133,9 @@ namespace DrunkenSaibor.Managers
 
             if (NotesSpawned == 0) return;
 
-            float cutP;
-            float cutBadP;
-            float missedP;
-
-            
-            cutP = (float) GoodCuts / (float) NotesSpawned;
-            cutBadP = (float) BadCuts / (float) NotesSpawned;
-            missedP = (float) NotesMissed / (float) NotesSpawned;
+            float cutP = (float) GoodCuts / (float) NotesSpawned;
+            float cutBadP = (float) BadCuts / (float) NotesSpawned;
+            float missedP = (float) NotesMissed / (float) NotesSpawned;
 
             float comboStat = Mathf.Clamp(((float) Combo) / 100f, 0f, 1f);
 
@@ -205,7 +198,6 @@ namespace DrunkenSaibor.Managers
                 BadCuts++;
             }
 
-            //Logger.log.Info($"Notes cut: {NotesCut}");
             UpdateIntensity();
         }
 
@@ -216,14 +208,12 @@ namespace DrunkenSaibor.Managers
             NotesMissed++;
             Combo = 0;
             ConsecutiveMissed++;
-            //Logger.log.Info($"Notes missed: {NotesMissed}");
+
             UpdateIntensity();
         }
 
         public static void NonZenjectedCameraNuisanceControllerFirstEnabled(CameraNuisanceController cameraNuisanceController)
         {
-            Logger.log.Debug("has been called!");
-
             if(!_cameraNuisanceControllers.Contains(cameraNuisanceController))
             {
                 _container.Inject(cameraNuisanceController);
@@ -232,7 +222,6 @@ namespace DrunkenSaibor.Managers
 
         public void Initialize()
         {
-            Logger.log.Debug($"{typeof(NuisanceManager)} Initialize()");
             NuisanceTypes = Utils.GetTypesInNamespace("DrunkenSaibor.Data.Nuisances");
             foreach(Type t in NuisanceTypes)
             {
@@ -240,6 +229,7 @@ namespace DrunkenSaibor.Managers
             }
             if (_cameraNuisanceControllers == null)
                 _cameraNuisanceControllers = new List<CameraNuisanceController>();
+            Logger.log.Debug($"{typeof(NuisanceManager)} Initialized!");
         }
 
 

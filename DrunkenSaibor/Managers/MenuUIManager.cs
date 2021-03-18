@@ -15,10 +15,7 @@ namespace DrunkenSaibor.Managers
             _modifierHost = modifierHost;
         }
 
-        public void Initialize()
-        {
-            GameplaySetup.instance?.AddTab("Drunken Saibor", "DrunkenSaibor.UI.Views.modifiers.bsml", _modifierHost);
-        }
+        public void Initialize() => GameplaySetup.instance?.AddTab("Drunken Saibor", "DrunkenSaibor.UI.Views.modifiers.bsml", _modifierHost);
 
         public void Dispose()
         {

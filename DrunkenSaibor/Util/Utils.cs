@@ -16,10 +16,7 @@ namespace DrunkenSaibor.Util
         /// Loads an embedded resource from the calling assembly
         /// </summary>
         /// <param name="resourcePath">Path to resource</param>
-        public static byte[] LoadFromResource(string resourcePath)
-        {
-            return GetResource(Assembly.GetCallingAssembly(), resourcePath);
-        }
+        public static byte[] LoadFromResource(string resourcePath) => GetResource(Assembly.GetCallingAssembly(), resourcePath);
 
         /// <summary>
         /// Loads an embedded resource from an assembly
@@ -34,15 +31,11 @@ namespace DrunkenSaibor.Util
             return data;
         }
 
-        public static DrunkEffectData LoadSFX(string resourcePath)
-        {
-            return LoadSFX(LoadFromResource(resourcePath));
-        }
+        public static DrunkEffectData LoadSFX(string resourcePath) => LoadSFX(LoadFromResource(resourcePath));
 
         private static DrunkEffectData LoadSFX(byte[] bytes)
         {
             AssetBundle bundle = AssetBundle.LoadFromMemory(bytes);
-            //var loadAsset = bundle.LoadAsset<Material>("Assets/ShaderEffect.mat");
             var shaderEffectMetadataGOPrefab = bundle.LoadAsset<GameObject>("Assets/ShaderEffectMetadata.prefab"); 
             GameObject shaderEffectMetadataGO = UnityEngine.Object.Instantiate(shaderEffectMetadataGOPrefab);
             DrunkEffect shaderEffect = shaderEffectMetadataGO.GetComponent<DrunkEffect>();
@@ -52,10 +45,7 @@ namespace DrunkenSaibor.Util
             return data;
         }
 
-        public static Type[] GetTypesInNamespace(string nameSpace)
-        {
-            return GetTypesInNamespace(Assembly.GetExecutingAssembly(), nameSpace);
-        }
+        public static Type[] GetTypesInNamespace(string nameSpace) => GetTypesInNamespace(Assembly.GetExecutingAssembly(), nameSpace);
 
         public static Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
         {

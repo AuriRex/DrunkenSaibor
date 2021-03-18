@@ -7,11 +7,10 @@ namespace DrunkenSaibor.Data
     public abstract class Nuisance : MonoBehaviour
     {
         private DrunkEffectData _data;
-        public DrunkEffectData Data {
-            get
-            {
-                return _data;
-            }
+        private Material _material;
+        public DrunkEffectData Data
+        {
+            get => _data;
             internal set
             {
                 _data = value;
@@ -28,8 +27,6 @@ namespace DrunkenSaibor.Data
         public abstract string Name { get; protected set; }
         public abstract bool DisablesScoreSubmission { get; protected set; }
 
-        private Material _material;
-
         [Inject]
         public void Init(NuisanceManager nuisanceManager, DSAssetLoader dsAssetLoader, NIntensityMappings mappings)
         {
@@ -40,15 +37,9 @@ namespace DrunkenSaibor.Data
             NuisanceInit();
         }
 
-        protected virtual void NuisanceInit()
-        {
-            Data = _dsAssetLoader.Get(Name);
-        }
+        protected virtual void NuisanceInit() => Data = _dsAssetLoader.Get(Name);
 
-        public virtual void Update()
-        {
-            _mappings?.SetEffectProperties(Data?.ReferenceName, _nuisanceManager.Intensity, ref _material);
-        }
+        public virtual void Update() => _mappings?.SetEffectProperties(Data?.ReferenceName, _nuisanceManager.Intensity, ref _material);
 
         public void OnEnable()
         {
@@ -77,10 +68,7 @@ namespace DrunkenSaibor.Data
             
         }
 
-        public bool ShouldRender()
-        {
-            return Data?.ShouldRender != null && Data.ShouldRender;
-        }
+        public bool ShouldRender() => Data?.ShouldRender != null && Data.ShouldRender;
 
         public void OnRenderImage(RenderTexture source, RenderTexture destination)
         {

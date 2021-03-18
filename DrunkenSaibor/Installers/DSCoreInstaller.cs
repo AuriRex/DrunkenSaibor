@@ -1,5 +1,4 @@
 ﻿using DrunkenSaibor.Configuration;
-using DrunkenSaibor.Data.Nuisances;
 using DrunkenSaibor.Managers;
 using DrunkenSaibor.Providers;
 using SiraUtil.Interfaces;
@@ -24,11 +23,7 @@ namespace DrunkenSaibor.Installers
             Container.BindInterfacesAndSelfTo<NuisanceManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<NIntensityMappings>().AsSingle();
 
-            //Container.Bind<SmoothCameraWrapper>().AsSingle();
-
             Container.Bind(typeof(IModelProvider), typeof(NoteInfoProvider)).To<NoteInfoProvider>().AsSingle();
-
-            //Container.Bind<RotateCamera>().FromNewComponentOn(_smoothCamera.gameObject).AsSingle().NonLazy();
         }
     }
 }

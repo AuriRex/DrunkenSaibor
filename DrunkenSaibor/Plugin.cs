@@ -1,11 +1,9 @@
 ﻿using DrunkenSaibor.Configuration;
 using DrunkenSaibor.Installers;
-using HarmonyLib;
 using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
 using SiraUtil.Zenject;
-using System.Reflection;
 using IPALogger = IPA.Logging.Logger;
 
 namespace DrunkenSaibor
@@ -15,7 +13,6 @@ namespace DrunkenSaibor
     public class Plugin
     {
         internal static string Name => "DrunkenSaibor";
-        private Harmony harmony;
 
         public const string HARMONY_ID = "com.aurirex.drunkensaibor";
 
@@ -29,18 +26,9 @@ namespace DrunkenSaibor
         }
 
         [OnEnable]
-        public void OnEnable()
-        {
-            //harmony = new Harmony(HARMONY_ID);
-            //harmony.PatchAll(Assembly.GetExecutingAssembly());
-            Logger.log.Debug($"{Name} enabled!");
-        }
+        public void OnEnable() => Logger.log.Debug($"{Name} enabled!");
 
         [OnDisable]
-        public void OnDisable()
-        {
-            //harmony.UnpatchAll(HARMONY_ID);
-            Logger.log.Debug($"{Name} disabled!");
-        }
+        public void OnDisable() => Logger.log.Debug($"{Name} disabled!");
     }
 }

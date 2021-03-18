@@ -16,9 +16,6 @@ namespace DrunkenSaibor.Managers
             _mappings = new Dictionary<string, ActionRef<float, float, Material>>();
 
             _mappings.Add("pixelate", (float intensity, float time, ref Material mat) => {
-
-                // TODO ##################
-               
                 float fintensity = 1 - Easing.InOutQuad(intensity);
 
                 int pixels = (int) (2000f * fintensity);

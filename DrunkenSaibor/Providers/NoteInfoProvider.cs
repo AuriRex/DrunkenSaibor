@@ -18,10 +18,7 @@ namespace DrunkenSaibor.Providers
             public bool CanSetup { get; private set; }
 
             [Inject]
-            public void Construct(DiContainer Container, GameplayCoreSceneSetupData sceneSetupData, PluginConfig pluginConfig)
-            {
-                CanSetup = pluginConfig.Enabled;
-            }
+            public void Construct(DiContainer Container, GameplayCoreSceneSetupData sceneSetupData, PluginConfig pluginConfig) => CanSetup = pluginConfig.Enabled;
 
             public GameNoteController Modify(GameNoteController original)
             {

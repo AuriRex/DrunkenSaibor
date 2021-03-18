@@ -11,10 +11,7 @@ namespace DrunkenSaibor.Managers
     {
         private Dictionary<string, DrunkEffectData> _effects;
 
-        public void Initialize()
-        {
-            Load();
-        }
+        public void Initialize() => Load();
 
         private const string PATH = "DrunkenSaibor.Resources.Effects.";
         private const string EXTENSION = ".dsfx";
