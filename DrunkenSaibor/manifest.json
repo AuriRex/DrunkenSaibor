@@ -1,0 +1,18 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/beat-saber-modding-group/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "DrunkenSaibor",
+  "name": "Drunken Saibor",
+  "author": "AuriRex",
+  "version": "0.0.2",
+  "description": "What will we do with a drunken saibor(-er)?",
+  "gameVersion": "1.14.0",
+  "dependsOn": {
+    "BSIPA": "^4.1.6",
+    "BeatSaberMarkupLanguage": "^1.5.1",
+    "SiraUtil": "^2.5.2"
+  },
+  "links": {
+    "project-home": "https://github.com/AuriRex/DrunkenSaibor",
+    "project-source": "https://github.com/AuriRex/DrunkenSaibor/tree/main/DrunkenSaibor"
+  }
+}
