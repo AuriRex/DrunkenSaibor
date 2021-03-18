@@ -24,7 +24,7 @@ namespace DrunkenSaibor.Installers
             Container.BindInterfacesAndSelfTo<NuisanceManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<NIntensityMappings>().AsSingle();
 
-            Container.Bind<SmoothCameraWrapper>().AsSingle();
+            //Container.Bind<SmoothCameraWrapper>().AsSingle();
 
             Container.Bind(typeof(IModelProvider), typeof(NoteInfoProvider)).To<NoteInfoProvider>().AsSingle();
 

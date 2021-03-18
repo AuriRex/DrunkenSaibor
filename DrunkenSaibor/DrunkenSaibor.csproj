@@ -138,10 +138,10 @@
     <Compile Include="Data\Nuisances\WeirdshitCamera.cs" />
     <Compile Include="Data\Nuisances\ZoomCamera.cs" />
     <Compile Include="HarmonyPatches\Camera2Patch.cs" />
-    <Compile Include="HarmonyPatches\SmoothCameraControllerPatch.cs" />
     <Compile Include="Installers\DSCoreInstaller.cs" />
     <Compile Include="Installers\DSGameInstaller.cs" />
     <Compile Include="Installers\DSMenuInstaller.cs" />
+    <Compile Include="Managers\DefaultCameraManager.cs" />
     <Compile Include="Managers\DSAssetLoader.cs" />
     <Compile Include="Managers\MenuUIManager.cs" />
     <Compile Include="Managers\NIntensityMappings.cs" />
@@ -149,7 +149,6 @@
     <Compile Include="Managers\NuisanceGameController.cs" />
     <Compile Include="Managers\NuisanceManager.cs" />
     <Compile Include="Managers\CameraNuisanceController.cs" />
-    <Compile Include="Managers\SmoothCameraWrapper.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />

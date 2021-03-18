@@ -34,7 +34,7 @@ namespace DrunkenSaibor
             zenjector.OnApp<DSCoreInstaller>().WithParameters(config.Generated<PluginConfig>());
             zenjector.OnGame<DSGameInstaller>().ShortCircuitForTutorial();
             zenjector.OnMenu<DSMenuInstaller>();
-            SmoothCameraControllerPatch.OnPostSmoothCameraControllerInit += SmoothCameraWrapper.SetSCC;
+            //SmoothCameraControllerPatch.OnPostSmoothCameraControllerInit += SmoothCameraWrapper.SetSCC;
         }
 
         [OnEnable]

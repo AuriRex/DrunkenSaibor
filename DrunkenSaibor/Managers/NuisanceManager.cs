@@ -36,6 +36,8 @@ namespace DrunkenSaibor.Managers
 
         public Type[] NuisanceTypes { get; private set; }
 
+        public bool InGame { get; private set; } = false;
+
         public NuisanceManager(DiContainer container, [InjectOptional] Submission submission, PluginConfig pluginConfig)
         {
             _container = container;
@@ -59,10 +61,13 @@ namespace DrunkenSaibor.Managers
                 TargetIntensity = 0;
             }
 
+            InGame = true;
+
             AddNuisances();
             bool scores = true;
             foreach (var cnc in _cameraNuisanceControllers)
             {
+                if (cnc == null) continue;
                 if (cnc.AnyDisablesScore()) scores = false;
             }
             if(!scores) _submission?.DisableScoreSubmission("Drunken Saibor", "Effect");
@@ -73,6 +78,7 @@ namespace DrunkenSaibor.Managers
         {
             foreach (var cnc in _cameraNuisanceControllers)
             {
+                if (cnc == null) continue;
                 foreach(Type t in NuisanceTypes)
                 {
                     cnc.AddNuisance(t);
@@ -89,6 +95,8 @@ namespace DrunkenSaibor.Managers
                 if(cnc)
                     cnc.DisableAllNuisances();
             }
+
+            InGame = false;
         }
 
         private float _pauseBackupIntensity = 0;
@@ -126,9 +134,9 @@ namespace DrunkenSaibor.Managers
 
             if (NotesSpawned == 0) return;
 
-            float cutP = 0;
-            float cutBadP = 0;
-            float missedP = 0;
+            float cutP;
+            float cutBadP;
+            float missedP;
 
             
             cutP = (float) GoodCuts / (float) NotesSpawned;
@@ -173,6 +181,8 @@ namespace DrunkenSaibor.Managers
 
         internal void OnNoteSpawned(NoteController noteController)
         {
+            if (!InGame) return;
+
             NotesSpawned++;
             //Logger.log.Info($"Notes spawned: {NotesSpawned}");
             UpdateIntensity();
@@ -180,6 +190,8 @@ namespace DrunkenSaibor.Managers
 
         internal void OnNoteCut(NoteController noteController, in NoteCutInfo noteCutInfo)
         {
+            if (!InGame) return;
+
             NotesCut++;
             Combo++;
             ConsecutiveMissed = 0;
@@ -198,6 +210,8 @@ namespace DrunkenSaibor.Managers
 
         internal void OnNoteMissed(NoteController noteController)
         {
+            if (!InGame) return;
+
             NotesMissed++;
             Combo = 0;
             ConsecutiveMissed++;
@@ -229,9 +243,10 @@ namespace DrunkenSaibor.Managers
         public void Dispose()
         {
             if (_intensityCoroutine != null) SharedCoroutineStarter.instance.StopCoroutine(_intensityCoroutine);
-            foreach (var s in _cameraNuisanceControllers)
+            foreach (var cnc in _cameraNuisanceControllers)
             {
-                GameObject.Destroy(s);
+                if (cnc == null) continue;
+                GameObject.Destroy(cnc);
             }
             _cameraNuisanceControllers = null;
         }

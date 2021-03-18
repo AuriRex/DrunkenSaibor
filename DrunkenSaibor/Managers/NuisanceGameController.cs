@@ -18,17 +18,15 @@ namespace DrunkenSaibor.Managers
 
         public void Initialize()
         {
-            /*SharedCoroutineStarter.instance.StartCoroutine(Utils.DoAfter(.1f, () => {
-                
-            }));*/
             if(_gamePause != null)
             {
                 _gamePause.didPauseEvent += _nuisanceManager.OnPause;
                 _gamePause.didResumeEvent += _nuisanceManager.OnResume;
             }
-            _nuisanceManager.OnGameStart();
-            
 
+            SharedCoroutineStarter.instance.StartCoroutine(Utils.DoAfter(.5f, () => {
+                _nuisanceManager.OnGameStart();
+            }));
         }
 
         public void Dispose()
