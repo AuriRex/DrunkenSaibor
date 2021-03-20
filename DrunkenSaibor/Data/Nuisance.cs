@@ -19,7 +19,7 @@ namespace DrunkenSaibor.Data
         }
 
         public bool IsActive { get; private set; } = false;
-        
+
         protected NuisanceManager _nuisanceManager;
         protected DSAssetLoader _dsAssetLoader;
         protected NIntensityMappings _mappings;
@@ -65,14 +65,14 @@ namespace DrunkenSaibor.Data
 
         public void OnDestroy()
         {
-            
+
         }
 
         public bool ShouldRender() => Data?.ShouldRender != null && Data.ShouldRender;
 
         public void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
-            if(Data == null || !Data.ShouldRender)
+            if (Data == null || !Data.ShouldRender)
             {
                 Graphics.Blit(source, destination);
                 return;

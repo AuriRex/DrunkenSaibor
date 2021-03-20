@@ -29,7 +29,8 @@ namespace DrunkenSaibor.UI
         protected bool PluginEnabled
         {
             get => _pluginConfig.Enabled;
-            set {
+            set
+            {
                 _pluginConfig.Enabled = value;
                 NotifyPropertyChanged(nameof(PluginEnabled));
             }
@@ -58,7 +59,7 @@ namespace DrunkenSaibor.UI
 
         public void Initialize()
         {
-            
+
         }
 
         [UIAction("cell-clicked")]
@@ -67,14 +68,14 @@ namespace DrunkenSaibor.UI
             Logger.log.Debug($"selcted element: {element}");
 
             element.Enabled = !element.Enabled;
-            //SetupList();
+            nuisanceList.tableView.ClearSelection();
         }
 
         protected void SetupList()
         {
             nuisanceList.data.Clear();
 
-            foreach(DrunkEffectData data in _assetLoader.GetAll())
+            foreach (DrunkEffectData data in _assetLoader.GetAll())
             {
                 nuisanceList.data.Add(new NuisanceElement(data));
             }
@@ -84,7 +85,7 @@ namespace DrunkenSaibor.UI
 
         public void Dispose()
         {
-            
+
         }
 
 #nullable enable annotations

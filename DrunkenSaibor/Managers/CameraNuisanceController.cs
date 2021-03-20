@@ -39,12 +39,12 @@ namespace DrunkenSaibor.Managers
                         NuisanceManager.NonZenjectedCameraNuisanceControllerFirstEnabled(this);
                     }
                 }));
-            }  
+            }
         }
 
         public bool AnyDisablesScore()
         {
-            foreach(Nuisance n in _attachedNuisanceList)
+            foreach (Nuisance n in _attachedNuisanceList)
             {
                 if (n.ShouldRender() && n.DisablesScoreSubmission) return true;
             }
@@ -65,7 +65,7 @@ namespace DrunkenSaibor.Managers
         {
             foreach (Nuisance n in _attachedNuisanceList)
             {
-                if(n)
+                if (n)
                     n.enabled = v;
             }
         }
@@ -80,7 +80,7 @@ namespace DrunkenSaibor.Managers
 
         public void DestroyAllNuisances()
         {
-            foreach(Nuisance n in _attachedNuisanceList)
+            foreach (Nuisance n in _attachedNuisanceList)
             {
                 GameObject.Destroy(n);
             }

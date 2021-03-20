@@ -34,7 +34,7 @@ namespace DrunkenSaibor.Managers
 
             _mappings.Add("zoom", (float intensity, float time, ref Material mat) => {
                 intensity = intensity / 4;
-                mat.SetFloat("_strength", - intensity); // < -.5 = screen flip! | -.33 > is unplayable
+                mat.SetFloat("_strength", -intensity); // < -.5 = screen flip! | -.33 > is unplayable
             });
 
             _mappings.Add("rotation", (float intensity, float time, ref Material mat) => {
@@ -48,7 +48,7 @@ namespace DrunkenSaibor.Managers
 
         public void SetEffectProperties(string referenceName, float intensity, ref Material mat, float time = 0)
         {
-            if(!_mappings.ContainsKey(referenceName))
+            if (!_mappings.ContainsKey(referenceName))
             {
                 throw new ArgumentException($"Invalid mapping: {referenceName}");
             }
@@ -59,6 +59,6 @@ namespace DrunkenSaibor.Managers
             action?.Invoke(intensity, time, ref mat);
         }
 
-        
+
     }
 }

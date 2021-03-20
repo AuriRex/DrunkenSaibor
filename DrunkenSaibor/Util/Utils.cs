@@ -36,7 +36,7 @@ namespace DrunkenSaibor.Util
         private static DrunkEffectData LoadSFX(byte[] bytes)
         {
             AssetBundle bundle = AssetBundle.LoadFromMemory(bytes);
-            var shaderEffectMetadataGOPrefab = bundle.LoadAsset<GameObject>("Assets/ShaderEffectMetadata.prefab"); 
+            var shaderEffectMetadataGOPrefab = bundle.LoadAsset<GameObject>("Assets/ShaderEffectMetadata.prefab");
             GameObject shaderEffectMetadataGO = UnityEngine.Object.Instantiate(shaderEffectMetadataGOPrefab);
             DrunkEffect shaderEffect = shaderEffectMetadataGO.GetComponent<DrunkEffect>();
             DrunkEffectData data = new DrunkEffectData(shaderEffect);

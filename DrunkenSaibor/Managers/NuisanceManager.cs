@@ -46,7 +46,7 @@ namespace DrunkenSaibor.Managers
         internal void OnGameStart()
         {
             Logger.log.Debug("OnGameStart");
-            if(!_pluginConfig.LevelIndependentHarassment)
+            if (!_pluginConfig.LevelIndependentHarassment)
             {
                 NotesCut = 0;
                 GoodCuts = 0;
@@ -68,7 +68,7 @@ namespace DrunkenSaibor.Managers
                 if (cnc == null) continue;
                 if (cnc.AnyDisablesScore()) scores = false;
             }
-            if(!scores) _submission?.DisableScoreSubmission("Drunken Saibor", "Effect");
+            if (!scores) _submission?.DisableScoreSubmission("Drunken Saibor", "Effect");
 
         }
 
@@ -77,7 +77,7 @@ namespace DrunkenSaibor.Managers
             foreach (var cnc in _cameraNuisanceControllers)
             {
                 if (cnc == null) continue;
-                foreach(Type t in NuisanceTypes)
+                foreach (Type t in NuisanceTypes)
                 {
                     cnc.AddNuisance(t);
                 }
@@ -90,7 +90,7 @@ namespace DrunkenSaibor.Managers
             Logger.log.Debug("OnGameStop");
             foreach (var cnc in _cameraNuisanceControllers)
             {
-                if(cnc)
+                if (cnc)
                     cnc.DisableAllNuisances();
             }
 
@@ -189,7 +189,7 @@ namespace DrunkenSaibor.Managers
             NotesCut++;
             Combo++;
             ConsecutiveMissed = 0;
-            if(noteCutInfo.allIsOK)
+            if (noteCutInfo.allIsOK)
             {
                 GoodCuts++;
             }
@@ -214,7 +214,7 @@ namespace DrunkenSaibor.Managers
 
         public static void NonZenjectedCameraNuisanceControllerFirstEnabled(CameraNuisanceController cameraNuisanceController)
         {
-            if(!_cameraNuisanceControllers.Contains(cameraNuisanceController))
+            if (!_cameraNuisanceControllers.Contains(cameraNuisanceController))
             {
                 _container.Inject(cameraNuisanceController);
             }
@@ -223,7 +223,7 @@ namespace DrunkenSaibor.Managers
         public void Initialize()
         {
             NuisanceTypes = Utils.GetTypesInNamespace("DrunkenSaibor.Data.Nuisances");
-            foreach(Type t in NuisanceTypes)
+            foreach (Type t in NuisanceTypes)
             {
                 Logger.log.Debug($"NuisanceType: {t}");
             }

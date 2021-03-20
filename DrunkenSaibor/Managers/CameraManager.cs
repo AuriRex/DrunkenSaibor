@@ -44,15 +44,15 @@ namespace DrunkenSaibor.Managers
         public virtual void Refresh()
         {
             PluginMetadata cameraTwo = PluginManager.GetPluginFromId("Camera2");
-            if(cameraTwo != null)
+            if (cameraTwo != null)
             {
                 List<Camera> cameras = new List<Camera>();
                 Type cam2Type = cameraTwo?.Assembly.GetType("Camera2.Behaviours.Cam2");
                 MonoBehaviour[] allCam2s = GameObject.FindObjectsOfType(cam2Type) as MonoBehaviour[];
-                foreach(MonoBehaviour cam2 in allCam2s)
+                foreach (MonoBehaviour cam2 in allCam2s)
                 {
                     var camera = cam2Type.GetProperty("UCamera", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(cam2, null) as Camera;
-                    if(camera != null)
+                    if (camera != null)
                     {
                         cameras.Add(camera);
                     }

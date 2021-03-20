@@ -7,7 +7,8 @@ public class AssetBuilderEditor : EditorWindow
 {
 
     [MenuItem("Drunken Saibor/Asset Builder")]
-    static void Init() {
+    static void Init()
+    {
         AssetBuilderEditor window = (AssetBuilderEditor) GetWindow(typeof(AssetBuilderEditor), true, "Drunken Saibor - Asset Builder");
         window.Show();
     }
@@ -23,7 +24,8 @@ public class AssetBuilderEditor : EditorWindow
 
     private static string EXTENSION = "dsfx";
 
-    void OnGUI() {
+    void OnGUI()
+    {
 
 
 
@@ -43,24 +45,29 @@ public class AssetBuilderEditor : EditorWindow
         EditorGUILayout.LabelField("Additional Info / Description:");
         description = EditorGUILayout.TextArea(description);
 
-        if (GUILayout.Button("Build Asset Bundle")) {
+        if (GUILayout.Button("Build Asset Bundle"))
+        {
 
-            if (shaderMaterial == null) {
+            if (shaderMaterial == null)
+            {
                 Debug.LogError("A Material must be set!");
                 return;
             }
 
-            if (assetName.Equals("")) {
+            if (assetName.Equals(""))
+            {
                 Debug.LogError("Shader Reference Name must be set!");
                 return;
             }
 
-            if (assetName.Contains(" ")) {
+            if (assetName.Contains(" "))
+            {
                 Debug.LogError("Shader Reference Name can not include spaces!");
                 return;
             }
 
-            if (shaderName.Equals("")) {
+            if (shaderName.Equals(""))
+            {
                 Debug.LogError("Shader Name must be set!");
                 return;
             }
@@ -102,7 +109,8 @@ public class AssetBuilderEditor : EditorWindow
 
             string[] guids = AssetDatabase.FindAssets("dsfx", new[] { "Assets/DrunkenOutput" });
             Debug.Log("guids: " + guids.Length);
-            if (guids.Length < 1) {
+            if (guids.Length < 1)
+            {
                 AssetDatabase.CreateFolder("Assets", "DrunkenOutput");
             }
 

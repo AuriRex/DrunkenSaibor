@@ -24,7 +24,7 @@ namespace DrunkenSaibor.Managers
 
             foreach (string s in resources)
             {
-                if(s.StartsWith(PATH))
+                if (s.StartsWith(PATH))
                 {
                     string name = s.Substring(PATH.Length, s.Length - PATH.Length - EXTENSION.Length);
                     Logger.log.Info($"Loading > {name}");

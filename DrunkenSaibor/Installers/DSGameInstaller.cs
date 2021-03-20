@@ -3,7 +3,7 @@ using Zenject;
 
 namespace DrunkenSaibor.Installers
 {
-    class DSGameInstaller : Installer<DSGameInstaller> 
+    class DSGameInstaller : Installer<DSGameInstaller>
     {
         public override void InstallBindings()
         {

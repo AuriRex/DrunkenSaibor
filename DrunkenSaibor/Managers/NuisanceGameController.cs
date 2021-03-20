@@ -18,7 +18,7 @@ namespace DrunkenSaibor.Managers
 
         public void Initialize()
         {
-            if(_gamePause != null)
+            if (_gamePause != null)
             {
                 _gamePause.didPauseEvent += _nuisanceManager.OnPause;
                 _gamePause.didResumeEvent += _nuisanceManager.OnResume;
@@ -31,7 +31,7 @@ namespace DrunkenSaibor.Managers
 
         public void Dispose()
         {
-            if(_gamePause != null)
+            if (_gamePause != null)
             {
                 _gamePause.didPauseEvent -= _nuisanceManager.OnPause;
                 _gamePause.didResumeEvent -= _nuisanceManager.OnResume;
