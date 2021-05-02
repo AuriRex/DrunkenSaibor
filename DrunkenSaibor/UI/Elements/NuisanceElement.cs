@@ -14,6 +14,7 @@ namespace DrunkenSaibor.UI.Elements
         {
             _data = data;
             _referenceName = _data.Name;
+            Enabled = data.EnabledByDefault;
         }
 
         public bool Enabled

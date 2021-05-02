@@ -13,12 +13,14 @@ namespace DrunkenSaibor.Managers
 
         public virtual void Initialize()
         {
-            Logger.log.Debug("Initializing new CameraManager!");
-            Refresh();
+            Logger.log.Debug("Initializing DrunkenSaibor CameraManager!");
+            SharedCoroutineStarter.instance.StartCoroutine(Util.Utils.DoAfter(0.1f, () => {
+                Refresh();
+            }));
         }
         public virtual void Dispose()
         {
-            Logger.log.Debug("Disposing CameraManager!");
+            Logger.log.Debug("Disposing DrunkenSaibor CameraManager!");
             Clean();
         }
 

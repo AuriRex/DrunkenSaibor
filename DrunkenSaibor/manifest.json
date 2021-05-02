@@ -3,7 +3,7 @@
   "id": "DrunkenSaibor",
   "name": "Drunken Saibor",
   "author": "AuriRex",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "What will we do with a drunken saibor(-er)?",
   "gameVersion": "1.14.0",
   "dependsOn": {
@@ -11,6 +11,9 @@
     "BeatSaberMarkupLanguage": "^1.5.1",
     "SiraUtil": "^2.5.2"
   },
+  "loadAfter": [
+    "ShaderExtensions"
+  ],
   "links": {
     "project-home": "https://github.com/AuriRex/DrunkenSaibor",
     "project-source": "https://github.com/AuriRex/DrunkenSaibor/tree/main/DrunkenSaibor"

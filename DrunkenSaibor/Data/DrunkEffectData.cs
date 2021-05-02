@@ -5,8 +5,9 @@ namespace DrunkenSaibor.Data
     public class DrunkEffectData
     {
         public bool ShouldRender { get; set; } = true;
+        public bool EnabledByDefault { get; set; } = true;
 
-        public DrunkEffectData(DrunkEffect sfx)
+        public DrunkEffectData(ShaderEffect sfx)
         {
             ReferenceName = sfx.referenceName;
             Name = sfx.name;

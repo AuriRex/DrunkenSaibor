@@ -14,7 +14,12 @@ namespace DrunkenSaibor.Managers
         public void Initialize() => Load();
 
         private const string PATH = "DrunkenSaibor.Resources.Effects.";
-        private const string EXTENSION = ".dsfx";
+        private const string EXTENSION = ".bsfx";
+
+        public List<string> disableByDefault = new List<string>()
+        {
+            "fms_cat_weirdshit"
+        };
 
         private void Load()
         {
@@ -28,7 +33,12 @@ namespace DrunkenSaibor.Managers
                 {
                     string name = s.Substring(PATH.Length, s.Length - PATH.Length - EXTENSION.Length);
                     Logger.log.Info($"Loading > {name}");
-                    _effects.Add(name, Utils.LoadSFX(s));
+                    var def = Utils.LoadSFX(s);
+                    if(disableByDefault.Contains(def.ReferenceName))
+                    {
+                        def.EnabledByDefault = false;
+                    }
+                    _effects.Add(name, def);
                 }
             }
         }

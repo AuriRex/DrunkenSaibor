@@ -37,12 +37,29 @@ namespace DrunkenSaibor.Managers
                 mat.SetFloat("_strength", -intensity); // < -.5 = screen flip! | -.33 > is unplayable
             });
 
-            _mappings.Add("rotation", (float intensity, float time, ref Material mat) => {
+            _mappings.Add("camera_rotation", (float intensity, float time, ref Material mat) => {
                 float val = Mathf.Sin(time);
                 bool negative = val < 0;
                 val = Mathf.Abs(val);
                 val = Easing.InCirc(val) * (negative ? -1 : 1);
                 mat.SetFloat("_RotationValue", intensity * val * 0.2f);
+            });
+
+            _mappings.Add("color_overflow", (float intensity, float time, ref Material mat) => {
+
+                intensity = Easing.InQuint(intensity);
+
+                if(intensity < .25)
+                {
+                    intensity = 0.99f;
+                }
+                else
+                {
+                    intensity = (intensity - 0.25f) * 1.333f;
+                    intensity = intensity * 100;
+                }
+
+                mat.SetFloat("_strength", intensity); // 0.99 = unaffected | > 5 = rainbow garbo
             });
         }
 

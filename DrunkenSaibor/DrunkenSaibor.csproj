@@ -59,6 +59,10 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\GameplayCore.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="ShaderExtensionsComponents, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\ShaderExtensionsComponents.dll</HintPath>
+    </Reference>
     <Reference Include="SiraUtil, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Plugins\SiraUtil.dll</HintPath>
@@ -133,6 +137,7 @@
   <ItemGroup>
     <Compile Include="Data\DrunkEffectData.cs" />
     <Compile Include="Data\Nuisance.cs" />
+    <Compile Include="Data\Nuisances\ColorOverflowCamera.cs" />
     <Compile Include="Data\Nuisances\PixelateCamera.cs" />
     <Compile Include="Data\Nuisances\RotateCamera.cs" />
     <Compile Include="Data\Nuisances\WeirdshitCamera.cs" />
@@ -152,7 +157,6 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\DrunkEffect.cs" />
     <Compile Include="Providers\NoteInfoProvider.cs" />
     <Compile Include="UI\Elements\CustomListElement.cs" />
     <Compile Include="UI\Elements\NuisanceElement.cs" />
@@ -165,14 +169,18 @@
   <ItemGroup>
     <None Include="BuildTargets.targets" />
     <None Include=".gitignore" />
-    <EmbeddedResource Include="Resources\Effects\fms_cat_weirdshit.dsfx" />
-    <EmbeddedResource Include="Resources\Effects\pixelate.dsfx" />
-    <EmbeddedResource Include="Resources\Effects\rotation.dsfx" />
-    <EmbeddedResource Include="Resources\Effects\zoom.dsfx" />
     <EmbeddedResource Include="UI\Views\modifiers.bsml" />
+    <EmbeddedResource Include="Resources\Effects\camera_rotation.bsfx" />
+    <EmbeddedResource Include="Resources\Effects\fms_cat_weirdshit.bsfx" />
+    <EmbeddedResource Include="Resources\Effects\pixelate.bsfx" />
+    <EmbeddedResource Include="Resources\Effects\zoom.bsfx" />
+    <EmbeddedResource Include="Resources\Effects\color_overflow.bsfx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HarmonyPatches\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ShaderExtensionsComponents.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="BuildTargets.targets" />
