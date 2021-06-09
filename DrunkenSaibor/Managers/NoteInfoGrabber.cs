@@ -29,9 +29,8 @@ namespace DrunkenSaibor.Managers
             }
         }
 
-        public void HandleNoteControllerDidInit(NoteController noteController) => _nuisanceManager.OnNoteSpawned(noteController);
+        public void HandleNoteControllerDidInit(NoteControllerBase noteController) => _nuisanceManager.OnNoteSpawned(noteController as NoteController);
         public void HandleNoteControllerNoteWasCut(NoteController noteController, in NoteCutInfo noteCutInfo) => _nuisanceManager.OnNoteCut(noteController, noteCutInfo);
         public void HandleNoteControllerNoteWasMissed(NoteController noteController) => _nuisanceManager.OnNoteMissed(noteController);
-
     }
 }
