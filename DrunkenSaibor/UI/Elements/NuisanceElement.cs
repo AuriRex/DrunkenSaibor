@@ -17,6 +17,11 @@ namespace DrunkenSaibor.UI.Elements
             Enabled = data.EnabledByDefault;
         }
 
+        internal DrunkEffectData Data
+        {
+            get => _data;
+        }
+
         public bool Enabled
         {
             get => _color.Equals("lime");

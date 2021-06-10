@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DrunkenSaibor.Data
 {
     public class DrunkEffectData
     {
-        public bool ShouldRender { get; set; } = true;
-        public bool EnabledByDefault { get; set; } = true;
+        public bool ShouldRender { get; internal set; } = true;
+        public bool EnabledByDefault { get; internal set; } = true;
+        public Type RuntimeType { get; internal set; }
 
         public DrunkEffectData(ShaderEffect sfx)
         {

@@ -9,7 +9,14 @@ namespace DrunkenSaibor.Managers
 {
     internal class CameraManager : IInitializable, IDisposable
     {
+        private readonly DiContainer _container;
+
         public Camera[] Cameras { get; private set; } = null;
+
+        public CameraManager(DiContainer container)
+        {
+            _container = container;
+        }
 
         public virtual void Initialize()
         {
@@ -28,18 +35,20 @@ namespace DrunkenSaibor.Managers
         {
             foreach (Camera cam in Cameras)
             {
-                Logger.log.Debug(cam.name);
                 if (cam.name.EndsWith(".cfg")) continue;
                 CameraNuisanceController cnc = cam.gameObject.GetComponent<CameraNuisanceController>();
+                
                 if (cnc == null)
                 {
-                    cam.gameObject.AddComponent<CameraNuisanceController>();
+                    Logger.log.Debug($"Adding {nameof(CameraNuisanceController)} onto camera \"{cam.name}\"");
+                    cnc = cam.gameObject.AddComponent<CameraNuisanceController>();
+                    _container.Inject(cnc);
                 }
                 else
                 {
-                    GameObject.Destroy(cnc);
-                    cam.gameObject.AddComponent<CameraNuisanceController>();
+                    cnc.Refresh();
                 }
+                
             }
         }
 

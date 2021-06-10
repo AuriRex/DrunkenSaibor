@@ -1,4 +1,5 @@
-﻿using DrunkenSaibor.Data;
+﻿using DrunkenSaibor.Configuration;
+using DrunkenSaibor.Data;
 using DrunkenSaibor.Util;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,6 @@ namespace DrunkenSaibor.Managers
 
         private List<Nuisance> _attachedNuisanceList;
 
-        private bool _isInitialized = false;
-
         [Inject]
         public void Construct(DiContainer container, NuisanceManager nuisanceManager)
         {
@@ -24,22 +23,11 @@ namespace DrunkenSaibor.Managers
 
             _attachedNuisanceList = new List<Nuisance>();
             _nuisanceManager.AddCameraNuisanceController(this);
-            _isInitialized = true;
         }
 
         public void OnEnable()
         {
-            if (!_isInitialized)
-            {
-                Logger.log.Debug("CameraNuisanceController First Enabled!");
-                StartCoroutine(Utils.DoAfter(.2f, () => {
-                    Logger.log.Debug("DoAfter()");
-                    if (!_isInitialized)
-                    {
-                        NuisanceManager.NonZenjectedCameraNuisanceControllerFirstEnabled(this);
-                    }
-                }));
-            }
+
         }
 
         public bool AnyDisablesScore()
@@ -49,6 +37,11 @@ namespace DrunkenSaibor.Managers
                 if (n.ShouldRender() && n.DisablesScoreSubmission) return true;
             }
             return false;
+        }
+
+        internal void Refresh()
+        {
+
         }
 
         public void OnDestroy()
@@ -84,7 +77,7 @@ namespace DrunkenSaibor.Managers
             {
                 GameObject.Destroy(n);
             }
-            _attachedNuisanceList = new List<Nuisance>();
+            _attachedNuisanceList.Clear();
         }
     }
 }

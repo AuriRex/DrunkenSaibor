@@ -1,9 +1,11 @@
 ﻿using DrunkenSaibor.Configuration;
+using DrunkenSaibor.Data;
 using DrunkenSaibor.Util;
 using SiraUtil.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -11,9 +13,9 @@ namespace DrunkenSaibor.Managers
 {
     public class NuisanceManager : IInitializable, IDisposable
     {
-        private static DiContainer _container;
         private readonly Submission _submission;
         private readonly PluginConfig _pluginConfig;
+        private readonly DSAssetLoader _assetLoader;
 
         private static List<CameraNuisanceController> _cameraNuisanceControllers = new List<CameraNuisanceController>();
 
@@ -36,16 +38,16 @@ namespace DrunkenSaibor.Managers
 
         public bool InGame { get; private set; } = false;
 
-        public NuisanceManager(DiContainer container, [InjectOptional] Submission submission, PluginConfig pluginConfig)
+        public NuisanceManager([InjectOptional] Submission submission, PluginConfig pluginConfig, DSAssetLoader assetLoader)
         {
-            _container = container;
             _submission = submission;
             _pluginConfig = pluginConfig;
+            _assetLoader = assetLoader;
         }
 
         internal void OnGameStart()
         {
-            Logger.log.Debug("OnGameStart");
+            //Logger.log.Debug("OnGameStart");
             if (!_pluginConfig.LevelIndependentHarassment)
             {
                 NotesCut = 0;
@@ -74,24 +76,36 @@ namespace DrunkenSaibor.Managers
 
         private void AddNuisances()
         {
+            if (!_pluginConfig.Enabled) return;
+
             foreach (var cnc in _cameraNuisanceControllers)
             {
                 if (cnc == null) continue;
                 foreach (Type t in NuisanceTypes)
                 {
-                    cnc.AddNuisance(t);
+                    PluginConfig.SavedNuisance nuisanceSettings = null;
+
+                    if(_assetLoader.TryGetEffectWithType(t, out DrunkEffectData data))
+                    {
+                        _pluginConfig.TryGetNuisanceSettingWithName(data.ReferenceName, out nuisanceSettings);
+                    }
+
+                    if(nuisanceSettings != null && nuisanceSettings.Enabled)
+                    {
+                        cnc.AddNuisance(t);
+                    } 
                 }
-                cnc.SetAllNuisancesEnabled(_pluginConfig.Enabled);
+                cnc.EnableAllNuisances();
             }
         }
 
         internal void OnGameStop()
         {
-            Logger.log.Debug("OnGameStop");
+            //Logger.log.Debug("Destroying nuisances.");
             foreach (var cnc in _cameraNuisanceControllers)
             {
                 if (cnc)
-                    cnc.DisableAllNuisances();
+                    cnc.DestroyAllNuisances();
             }
 
             InGame = false;
@@ -113,10 +127,7 @@ namespace DrunkenSaibor.Managers
         internal void AddCameraNuisanceController(CameraNuisanceController cameraNuisanceController)
         {
             if (!_cameraNuisanceControllers.Contains(cameraNuisanceController))
-            {
-                Logger.log.Debug($"New SmoothCameraNuisanceController on gameobject '{cameraNuisanceController.gameObject.name}'");
                 _cameraNuisanceControllers.Add(cameraNuisanceController);
-            }
         }
 
         internal void RemoveCameraNuisanceController(CameraNuisanceController cameraNuisanceController)
@@ -212,30 +223,24 @@ namespace DrunkenSaibor.Managers
             UpdateIntensity();
         }
 
-        public static void NonZenjectedCameraNuisanceControllerFirstEnabled(CameraNuisanceController cameraNuisanceController)
-        {
-            if (!_cameraNuisanceControllers.Contains(cameraNuisanceController))
-            {
-                _container.Inject(cameraNuisanceController);
-            }
-        }
-
         public void Initialize()
         {
-            NuisanceTypes = Utils.GetTypesInNamespace("DrunkenSaibor.Data.Nuisances");
+            NuisanceTypes = Utils.GetTypesInNamespace(DSAssetLoader.NUISANCE_NAMESPACE);
             foreach (Type t in NuisanceTypes)
             {
                 Logger.log.Debug($"NuisanceType: {t}");
             }
             if (_cameraNuisanceControllers == null)
                 _cameraNuisanceControllers = new List<CameraNuisanceController>();
+            else
+                _cameraNuisanceControllers.Clear();
             Logger.log.Debug($"{typeof(NuisanceManager)} Initialized!");
         }
 
 
         public void Dispose()
         {
-            if (_intensityCoroutine != null) SharedCoroutineStarter.instance.StopCoroutine(_intensityCoroutine);
+            if (_intensityCoroutine != null && SharedCoroutineStarter.instance != null) SharedCoroutineStarter.instance.StopCoroutine(_intensityCoroutine);
             foreach (var cnc in _cameraNuisanceControllers)
             {
                 if (cnc == null) continue;

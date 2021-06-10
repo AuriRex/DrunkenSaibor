@@ -8,6 +8,7 @@ using DrunkenSaibor.Util;
 using HMUI;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
@@ -67,7 +68,15 @@ namespace DrunkenSaibor.UI
         {
             Logger.log.Debug($"selcted element: {element}");
 
+            var data = element.Data;
+
             element.Enabled = !element.Enabled;
+
+            if (_pluginConfig.Nuisances.Any(x => x.Name.Equals(data.ReferenceName)))
+            {
+                _pluginConfig.Nuisances.First(x => x.Name.Equals(data.ReferenceName)).Enabled = element.Enabled;
+            }
+
             nuisanceList.tableView.ClearSelection();
         }
 
@@ -77,6 +86,17 @@ namespace DrunkenSaibor.UI
 
             foreach (DrunkEffectData data in _assetLoader.GetAll())
             {
+                if(data.RuntimeType != null)
+                {
+                    if(_pluginConfig.Nuisances.Any(x => x.Name.Equals(data.ReferenceName)))
+                    {
+                        data.EnabledByDefault = _pluginConfig.Nuisances.First(x => x.Name.Equals(data.ReferenceName)).Enabled;
+                    }
+                    else
+                    {
+                        Logger.log.Error("This shouldn't even happen.");
+                    }
+                }
                 nuisanceList.data.Add(new NuisanceElement(data));
             }
 
