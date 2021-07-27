@@ -3,13 +3,13 @@
   "id": "DrunkenSaibor",
   "name": "Drunken Saibor",
   "author": "AuriRex",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "What will we do with a drunken saibor(-er)?",
-  "gameVersion": "1.16.1",
+  "gameVersion": "1.16.4",
   "dependsOn": {
-    "BSIPA": "^4.1.6",
-    "BeatSaberMarkupLanguage": "^1.5.1",
-    "SiraUtil": "^2.5.2"
+    "BSIPA": "^4.2.0",
+    "BeatSaberMarkupLanguage": "^1.5.4",
+    "SiraUtil": "^2.5.7"
   },
   "loadAfter": [
     "ShaderExtensions"
